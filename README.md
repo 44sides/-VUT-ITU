@@ -14,3 +14,5 @@ https://github.com/44sides/-VUT-IIS
 - Test the result on users, evaluate and document it.
 - Document everything in a technical report.
 - The result must be defended in the final presentation.
+
+Dependencies: PHP8.1, JavaScript, HTML5, jQuerry

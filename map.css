@@ -1,0 +1,607 @@
+body{
+    font-family: Arial, Helvetica;
+    margin:0%;
+    font-size: 1rem;
+    width: 100%;    
+    height: 100%;
+}
+h2 {
+    text-align: center;
+}
+.settings{
+    z-index: 10;
+    position: fixed;
+    top:10px;
+    left:10px;
+}
+
+#map {
+    position: fixed;
+    top:0px;
+    right:0px;
+    height: 100vh; 
+    width: 100vw;
+}
+
+button.icon {
+    display: block;
+    z-index: 10;
+    color: black;
+    position: fixed;
+    float:right;
+    left:8px;
+    top:8px;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    padding: 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 40px;
+    height: 40px;
+}
+
+button.icon:hover {background-color: #848482;color: #FFFFFFFF}
+
+#sidebar {
+    animation-timing-function: linear;
+    left: -50%;
+    z-index: 8;
+    position: fixed;
+    display: block;
+    width: 50%;
+    min-width: 275px;
+    height: 100%;
+    background: rgb(132,132,130);
+    background: linear-gradient(90deg, rgba(132,132,130,1) 0%, rgba(132,132,130,0.7) 80%, rgba(177,177,177,0.4) 100%);
+    
+}
+#sidebar h3 {
+    text-align: center;
+}
+#sidebar h3 i{
+    font-style: normal;
+    color: white;
+    font-weight: bolder;
+    font-size: larger;
+}
+#sidebar ul {
+    position: relative;
+    top:50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#sidebar li:hover {
+    border: 3px solid rgb(8, 8, 8);
+    border-radius: 10px;
+    background-color: rgba(169, 167, 167, 0.8);
+}
+
+#sidebar li{
+    text-align: center;
+    border: 3px solid rgba(169, 167, 167, 0.8);
+    border-radius: 10px;
+    font-size: x-large;
+    list-style: none;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#sidebar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+@keyframes sidebar{
+    from {left:-50%}
+    to {left:0%}
+}
+
+@keyframes sidebar100{
+    from {left:-100%}
+    to {left:0%}
+}
+
+@keyframes sidebar_down{
+    from {left:0%}
+    to {left:-50%}
+}
+
+@keyframes sidebar_down100{
+    from {left:0%}
+    to {left:-100%}
+}
+
+button.reportIcon {
+    font-weight: bold;
+    font-size: xx-large;
+    display: block;
+    z-index: 5;
+    color: black;
+    position: fixed;
+    bottom:2%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 40px;
+}
+button.reportIcon:hover {
+    background-color: #848482;
+    color: white    ;
+}
+
+@keyframes hintbar_down{
+    from {bottom:0%}
+    to {bottom:-40%}
+}
+
+@keyframes hintbar_up{
+    from {bottom:-40%}
+    to {bottom:0%}
+}
+
+#hintBar {
+    animation-timing-function: linear;
+    bottom: -40%;
+    right:0%;
+    text-align: center;
+    z-index: 8;
+    position: fixed;
+    display: block;
+    width: 100%;
+    height:40%;
+    color: white;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background: rgb(132,132,130);
+    background: linear-gradient(180deg, rgba(132,132,130,1) 0%, rgba(132,132,130,0.7) 40%, rgba(177,177,177,0.5) 100%);
+}
+
+#hintBar h2 {
+    margin-top: 10%;
+}
+
+button.myPosition{
+    display: block;
+    z-index: 7;
+    color: black;
+    position: fixed;
+    float:right;
+    right:8px;
+    top:8px;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    padding: 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+button.myPosition:hover{
+    background-color: #848482;color: #FFFFFFFF;
+}
+button.SearchIcon{
+    display: block;
+    z-index: 7;
+    color: black;
+    position: fixed;
+    right:60px;
+    top:8px;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    padding: 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+button.SearchIcon:hover{
+    background-color: #848482;color: #FFFFFFFF;
+}
+
+#searchBar{
+    display:block;
+    width: 0%;
+    position: fixed;
+    z-index: 6;
+    right:62px;
+    top:8px;
+    width: fit-content;
+}
+#searchBar form {
+    margin:0px;
+}
+#searchBar input[type=text]{
+    width: 0ch;
+    max-width: 60vw;
+    height: 30px;
+    padding: 20px;
+    border: 1px solid #000000;
+    border-radius: 30px;
+}
+
+@keyframes search_out{
+    from {width:0ch}
+    to {width:40ch}
+}
+@keyframes search_in{
+    from {width:40ch}
+    to {width:0ch}
+}
+
+.infoImg {
+    display: block;
+    min-width: 20px;
+    min-height: 20px;
+    width: 20vw;
+    height: 20vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hand {
+    display: none;
+    opacity: 1;
+    z-index: 11;
+    position: fixed;
+    max-height: 40%;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color:  rgba(177,177,177,0.5);
+}
+
+@keyframes hand_in {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes hand_out {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
+#formular {
+    animation-timing-function: linear;
+    bottom: -60%;
+    right:0%;
+    z-index: 7;
+    position: fixed;
+    display: block;
+    width: 100%;
+    height:60%;
+    color: white;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background: rgb(132,132,130);
+    background: linear-gradient(180deg, rgba(132,132,130,1) 0%, rgba(132,132,130,0.7) 40%, rgba(177,177,177,0.5) 100%);
+}
+
+@keyframes formular_open {
+    from {bottom:-60%}
+    to {bottom: 0%}
+}
+@keyframes formular_close {
+    from {bottom: 0%}
+    to {bottom: -60%}
+}
+
+@keyframes formular_down {
+    from {bottom: 0%}
+    to {bottom: -40%}
+}
+
+@keyframes formular_up {
+    from {bottom:-40%}
+    to {bottom: 0%}
+}
+@keyframes formular_exit {
+    from {bottom:-40%}
+    to {bottom: -60%}
+}
+
+#closeFormular {
+    text-align: center;
+    position: absolute;
+    right:25px;
+    top:10px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    padding: 0px;
+    margin: 0px;
+    background-color: unset;
+    border-width: 0px;
+}
+
+.fa-circle-xmark:hover{
+    background-color: white;
+    border-radius: 50%;
+}
+
+#formular form {
+    margin:auto;
+    width: 80vw;
+}
+
+#formular label {
+    font-weight: bold;
+    font-size: x-large;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 3%;
+}
+
+#formular select {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 10px;
+    border: 3px solid #000000;
+    font-size: x-large;
+    border-radius: 10px;
+}
+
+#upload {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: large;
+}
+#upload:hover {
+    background-color: #848482;color: #FFFFFFFF;
+}
+
+#vol {
+    font-weight: normal;
+    font-style: normal;  
+}
+
+input[type="file"] {
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: large;
+}
+
+input::file-selector-button{
+    text-align: center;
+    width: fit-content;
+    padding: 15px;
+    border: 3px solid #000000;
+    font-size: large;
+    border-radius: 10px;
+    color: #000000;
+    background-color: white;
+    margin-left:1%;
+}
+
+input::file-selector-button:hover {
+    background-color: #848482;color: #FFFFFFFF;
+}
+
+#submit {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: xx-large;
+    color: black;
+    bottom: 3%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: 15px;
+    border: 1px solid #000000;
+    border-radius: 40px;
+}
+
+#submit:hover{
+    background-color: #848482;color: #FFFFFFFF;
+}
+
+#allTickets {
+    position: fixed;
+    z-index: 0;
+    color: black;
+    right:9px;
+    top:60px;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    padding: 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#allTickets:hover{
+    background-color: #848482;color: #FFFFFFFF;
+}
+
+#myTickets, #workerTickets {
+    position: fixed;
+    z-index: 7;
+    color: black;
+    right:9px;
+    top:60px;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    padding: 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+#myTickets:hover, #workerTickets:hover {
+    background-color: #848482;color: #FFFFFFFF;
+}
+
+#sidebar form {
+    display: block;
+    width: max-content;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 40vw;
+}
+
+#sidebar form label{
+    font-weight: bold;
+    font-size: x-large;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    color:white
+    
+
+}
+
+#email , #password {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 10px;
+    border: 3px solid #000000;
+    font-size: x-large;
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+#loginButton {
+    margin-top: 3%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: large;
+    border: 3px solid #000000;
+    font-size: x-large;
+    border-radius: 10px;
+    background-color: white;
+}
+
+#loginButton:hover , #backLogin:hover , #removeTicketButton:hover, #redirectButton:hover{
+    background-color: #848482;color: #FFFFFFFF
+}
+
+#backLogin {
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: 8px;
+    z-index: 13;
+    color: black;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 1px solid #000000;
+}
+
+#removeTicketButton , #redirectButton{
+    font-weight: bold;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 40px;
+    margin-top:1%;
+}
+
+#f_name,#l_name,#register #email,#register #password,#phone{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 10px;
+    border: 3px solid #000000;
+    font-size: large;
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+#register #email,#register #password{
+    border-color: red;
+}
+
+#backRegister {
+    display: block;
+    position: absolute;
+    z-index: 13;
+    color: black;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 1px solid #000000;
+    top: 60px;
+    left: 8px;
+}
+
+#wrongLogin {
+    color: rgb(128, 1, 1);
+    text-align: center;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+#bigSpot{
+    background-color: white;
+    position: fixed;
+    width:100vw;
+    height: 100vh;
+    z-index: -10;
+}
+
+#bigImage{
+    width:100% ;
+    margin-left: auto; 
+    margin-right: auto;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+#form {
+    max-width: 800px;
+}
+/****************/
+@media only screen and (max-width: 775px) {
+
+}
+@media only screen and (max-width: 576px) {
+    #sidebar {
+        width:85%;
+        left:-100%;
+    }
+    body{
+        min-width: 275px;
+    }
+    #map{
+        min-width: 275px;
+    }
+    #sidebar form {
+        max-width: 60vw;
+    }
+    #sidebar-ul {
+        padding-left: 1%;
+    }
+    
+}
+@media only screen and (max-width: 275px) {
+    #searchBar input[type=text]{
+        max-width: 22ch;
+    }
+    #sidebar-ul {
+        padding-left: 0%;
+    }
+}

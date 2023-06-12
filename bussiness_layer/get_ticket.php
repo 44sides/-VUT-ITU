@@ -1,0 +1,169 @@
+<?php
+/**
+ * @author xsikul15@stud.fit.vutbr.cz
+ * Set of funtions which are used to work with tickets
+ */
+if (session_id() == "")
+    session_start();
+include_once("./data_layer/db_tickets.php");
+include_once("./data_layer/db_user.php");
+include_once("./bussiness_layer/constants.php");
+/*Function which check and parse database row to array
+Takes: fetched row of ticket from databes
+Returns: array with ticket data*/
+function get_ticket_data($row){
+    global $description_state;
+    $ticket[0] = $row["id"];
+    $ticket[1] = get_ticket_category($row["category"]);
+    $ticket[2] = $row["lng"];
+    $ticket[3] = $row["lat"];
+    $ticket[4] = $description_state[$row["state_from_manager"]];
+    if (isset($row["msg_from_manager"])){
+        $ticket[5] = $row["msg_from_manager"];
+    }else {
+        $ticket[5] = "";
+    }
+    $ticket[6] = $row["time_created"];
+    if (isset($row["time_modified"])){
+        $ticket[7] = $row["time_modified"];
+    }else {
+        $ticket[7] = "";
+    }
+    if (isset($row["photo"])){
+        $ticket[8] = $row["photo"];
+    }else {
+        $ticket[8] = "../img/placeholder-image.png";
+    }
+    return $ticket;
+}
+//Depracted function which have no longer any use. But i was scared to remove it cuz who knows...
+function print_all_tickets_table_row(){
+    $tickets = get_all_tickets(); 
+            while($row = $tickets->fetch()){
+                $ticket = get_ticket_data($row);
+                echo "<tr>";
+                for($i=0;$i<count($ticket);$i++){
+                    if($i==2){
+                        echo '<td id="address'.$ticket[0].'"><script type="text/javascript">get_address('.$ticket[0].','.$ticket[$i].','.$ticket[$i+1].');</script></td>';
+                        //echo "<td>". $ticket[$i]." : ". $ticket[$i+1] ."</td>";
+                        $i++;
+                    }else if($i == 8){
+                        echo '<td><img src="'. $ticket[$i] .'" alt="Chyba" </td>';
+                    }else {
+                        echo "<td>". $ticket[$i] ."</td>";
+                    }
+                }
+                echo "</tr>";
+            }
+}
+//function which makes html table of tickets of logged user
+//Returns: string: html table
+function my_ticket_rows(){
+    global $description_state;
+    $id = "";
+    $html = "";
+    //user must be logged in to perfom this action
+    if(isset($_SESSION["email"])){
+        $id =  get_user_by_email($_SESSION["email"])["id"];
+    }else {
+        echo "You have to be logged in to use 'My tickets' feature ...\nLOG: function: my_ticket_row";
+        exit();
+    }
+    //get database view
+    $my_tickets = get_my_tickets($id);
+    //for every fetched row
+    while($row = $my_tickets->fetch()){
+        $my_ticket = get_ticket_data($row);
+        $html = $html . "\n<tr>\n";
+        for($i=1;$i<=count($my_ticket);$i++){
+            if($i==2){
+                //$html = $html . "<td>". $my_ticket[$i]." : ". $my_ticket[$i+1] ."</td>\n";
+                $html = $html . '<td id="address'.$my_ticket[0].'"><script type="text/javascript">get_address('.$my_ticket[0].','.$my_ticket[$i].','.$my_ticket[$i+1].');</script></td>';
+                //$html = $html . '<td class="address"'.$my_ticket[0].'><script src="https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyCJVGL83AulBYsKWzBA0ooSruG4_CVIWqA"></script></td>';
+                $i++;
+            }else if($i == 8){
+                $html = $html . '<td><img src="'. $my_ticket[$i] .'" alt="Chyba" </td>'."\n";
+            }else if($i == count($my_ticket)){
+                //if state is 0 then user have ability to remove ticket
+                if ( ! ticket_has_service_requests($my_ticket[0])){
+                    $html = $html . '<td><button onclick="handle_remove_button('. $my_ticket[0] .')">Vymazať</button></td>'."\n";
+                }else{
+                    $html = $html . '<td></td>'."\n";
+                }
+                
+            }else {
+                $html = $html . "<td>". $my_ticket[$i] ."</td>"."\n";
+            }
+        }
+        $html = $html . "</tr>\n";
+    }
+    return $html;
+
+}
+//function which makes html table of all tickets
+//Returns: string: html table
+function all_ticket_rows(){
+    $html = "";
+    $my_tickets = get_all_tickets();
+    while($row = $my_tickets->fetch()){
+        $my_ticket = get_ticket_data($row);
+        $html = $html . "\n<tr>\n";
+        for($i=1;$i<count($my_ticket);$i++){
+            if($i==2){
+                $html = $html . '<td id="address'.$my_ticket[0].'"><script type="text/javascript">get_address('.$my_ticket[0].','.$my_ticket[$i].','.$my_ticket[$i+1].');</script></td>';
+                //$html = $html . "<td>". $my_ticket[$i]." : ". $my_ticket[$i+1] ."</td>\n";
+                $i++;
+            }else if($i == 8){
+                $html = $html . '<td><img src="'. $my_ticket[$i] .'" alt="Chyba" </td>'."\n";
+            }else {
+                $html = $html . "<td>". $my_ticket[$i] ."</td>"."\n";
+            }
+        }
+        $html = $html . "</tr>\n";
+    }
+    return $html;
+
+}
+//Function that parse all tickets data from database to JSON format
+//Return: string: JSON format
+function all_tickets_map_json(){
+    $json = "[";
+    $tickets = get_all_tickets();
+    while($row = $tickets->fetch()){
+        $ticket = get_ticket_data($row);
+        $json = $json .'{"id":'.$ticket[0].',"category":"'.$ticket[1].'","lng":'.$ticket[2].', "lat":'.$ticket[3].', "state":"'.$ticket[4].'", "msg":"'.$ticket[5].'", "time_created":"'.$ticket[6].'", "time_modified":"'.$ticket[7].'", "img":"'.$ticket[8].'"},'; //TODO
+    }
+    $json = rtrim($json,",");
+    $json =$json . "]";
+    return $json;
+}
+//Function that parse my tickets data from database to JSON format
+//Return: string: JSON format
+function my_tickets_map_json(){
+    $json = "[";
+    $tickets = get_my_tickets(get_user_by_email($_SESSION["email"])["id"]);
+    while($row = $tickets->fetch()){
+        $ticket = get_ticket_data($row);
+        $json = $json .'{"id":'.$ticket[0].',"category":"'.$ticket[1].'","lng":'.$ticket[2].', "lat":'.$ticket[3].', "state":"'.$ticket[4].'", "msg":"'.$ticket[5].'", "time_created":"'.$ticket[6].'", "time_modified":"'.$ticket[7].'", "img":"'.$ticket[8].'"},'; //TODO
+    }
+    $json = rtrim($json,",");
+    $json =$json . "]";
+    return $json;
+}
+
+//Function that parse service requests data from database to JSON format
+//Return: string: JSON format
+function worker_requests_map_json(){
+    global $description_state;
+    $json = "[";
+    $request = get_my_requests(get_user_by_email($_SESSION["email"])["id"]);
+    while($row = $request->fetch()){
+        $ticket = get_ticket_by_id($row["for_ticket"]);
+        //TODO check of valid data
+        $json = $json .'{"id":'.$row["id"].', "description":"'.$row["description_from_manager"].'", "expected_date":"'.$row["expected_date"].'", "state_req":"'.$description_state[$row["state"]].'", "lng":'.$ticket["lng"].', "lat":'.$ticket["lat"].', "img":"'.$ticket["photo"].'", "time_modified":"'.$ticket["time_modified"].'", "category":"'. get_ticket_category($ticket["category"]).'" },';
+    }
+    $json = rtrim($json,",");
+    $json =$json . "]";
+    return $json;
+}
+?>

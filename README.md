@@ -1,18 +1,22 @@
-# -VUT-ITU
-User Interface Programming - Chytni zavadu
+# ITU - Chytni závadu!
+Tento školský projekt je webovou aplikáciou na hlásenie a správu hlásení závad v meste.
+## Aplikácia
+Fungujúca aplikácia je dostupná na stránke: https://www.stud.fit.vutbr.cz/~xsikul15/ITU/index.php.<br>
+Základné vytvorené účty sú:<br>
+* **Obyžajný užívateľ:** Email: `user@fit.com` Heslo: `user` 
+* **Technik:** Email: `worker@fit.com` Heslo: `worker`
+* **Správca** Email: `manager@fit.com` Heslo: `manager`
+* **Admin:** Email: `admin@fit.com` Heslo: `admin` 
+## Popis inštalácie
+### Databáza
+Celú databázu ide vytvoriť a nainicializovať MySQL skriptom *script.sql*. Samozrejme, za predpokladu že server podporuje MySQL databázu.
+### Aplikácia
+Pre rozbehnutie aplikácie je postačujúce prekopírovať zdrojové súbory na adekvátny hosting. Ďalej treba v súbore *db_setup.php* naststaviť *PDO* pre databázu. Inak je *PDO* nastavené na databbázu na serveri *eva.fit.vutbr.cz* pod účtom *xsikul15*.<br>
+Hosting by mal podporovať PHP8.1, JavaScript, HTML5, jQuerry a iné základné webové prostriedky.
+## Knižnice
+Angular: https://angularjs.org<br>
+jQuery: https://jquery.com<br>
+FontAwesome: https://fontawesome.com<br>
+Lodash: https://lodash.com<br>
+polyfill: https://polyfill.io<br>
 
-This project is an extension of the information system project "Chytni zavadu" to a convenient user interface.
-
-https://github.com/44sides/-VUT-IIS
-
-- Find a user and application that you will upgrade and analyze the use of this application by a specific user.
-- Design a new user process (to make it faster and/or more natural), UI and GUI information structure.
-- Implement the suggested changes within the solution team. Pay particular attention to:
-  - appropriate selection and correct use of the chosen technology for GUI creation
-  - application architecture and correct use of the MVC design pattern
-  - careful implementation and source code quality.
-- Test the result on users, evaluate and document it.
-- Document everything in a technical report.
-- The result must be defended in the final presentation.
-
-Dependencies: PHP8.1, JavaScript, HTML5, jQuerry

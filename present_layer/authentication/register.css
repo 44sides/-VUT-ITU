@@ -1,0 +1,102 @@
+body{
+    font-family: sans-serif, Arial, Helvetica;
+    margin:0%;
+    text-align: center;
+    font-size: 1rem;
+    min-width: 800px;
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+nav{
+    width:100%;
+    display:flex;
+}
+
+.ico-hover:hover {background-color: #04317973;color: #FFFFFFFF}
+nav h2{
+    width: 100%;
+    margin: 0;
+}
+
+.headline{
+    color: #043179 ;
+    padding: 16px;
+    text-align: center;
+    margin-top: 10px;
+}
+.back-but{
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    position: relative;
+    float: left;
+    height: 33px;
+    color: #043179;
+}
+.ico{
+    position: relative;
+    top: 16px;
+}
+
+.err-msg{
+    color:red;
+    text-align: center;
+}
+.succ-msg{
+    color:#043179;
+    text-align: center;
+}
+.hidden{
+    display: none;
+}
+table{
+    font-size: larger;
+    margin-left: auto;
+    margin-right: auto;
+}
+select,
+input{
+    border-radius: 5px;
+    height: 30px;
+    border-color: #04317962;
+    font-size: large;
+}
+select{
+    width: 100%;
+    font-size: large;
+}
+option{
+    background-color: #d8e7ff;
+    border-radius: 5px;
+}
+option:hover{
+    background-color: #043179;
+    color: red;
+}
+td{
+    text-align: right;
+}
+#password, #email{
+    border-color: rgb(3, 5, 117);
+    background-color: #04317909;
+}
+.req{
+    color: #054bbd;
+}
+
+
+.submit {
+  background-color: #043179;
+  text-align: center;
+  border-radius: 8px;
+  border-style: none;
+  font-size: larger;
+  color: #fff;
+}
+
+.submit:hover {
+  background-color: #0431798f;
+}

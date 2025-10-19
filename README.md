@@ -2,7 +2,7 @@
 
 User Interface Programming - Chytni zavadu
 
-This project is an extension of the information system project "Chytni zavadu" to a convenient user interface.
+This project is an extension of the information system project "Chytni zavadu" to a user-friendly user interface.
 
 https://github.com/44sides/-VUT-IIS
 

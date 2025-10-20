@@ -6,6 +6,8 @@ This project is an extension of the information system project "Chytni zavadu" t
 
 https://github.com/44sides/-VUT-IIS
 
+https://github.com/user-attachments/assets/2be961ef-b2a2-4e9b-ae17-490c193d7b9c
+
 - Find a user and application that you will upgrade and analyze the use of this application by a specific user.
 - Design a new user process (to make it faster and/or more natural), UI and GUI information structure.
 - Implement the suggested changes within the solution team. Pay particular attention to:
@@ -16,4 +18,5 @@ https://github.com/44sides/-VUT-IIS
 - Document everything in a technical report.
 - The result must be defended in the final presentation.
 
-Dependencies: PHP8.1, JavaScript, HTML5, jQuerry
+### Tech Stack 
+PHP8.1, JavaScript, jQuerry, HTML5
